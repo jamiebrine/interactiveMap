@@ -1,2 +1,2 @@
 Flask
-"reactpy[flask]"
+reactpy[flask]

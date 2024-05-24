@@ -23,9 +23,12 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/hello')
     def hello():
-        return 'Hello, World!'
+        return 'Hello, from Flask and Docker'
     
     from . import main
     app.register_blueprint(main.bp)
+
+    #if __name__ == "__main__":
+    #    app.run(debug=True)
     
     return app

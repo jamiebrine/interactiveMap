@@ -5,3 +5,7 @@ from flask import (
 )
 
 bp = Blueprint('main', __name__, url_prefix='/main')
+
+@bp.route('/landing')
+def go():
+    return render_template('app/base.html')

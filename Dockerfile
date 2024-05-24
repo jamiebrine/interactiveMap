@@ -1,5 +1,12 @@
-FROM python:3.12 
-# Or any preferred Python version.
-ADD main.py .
-RUN pip install "reactpy[flask]"
-CMD [“python”, “./main.py”] 
+# syntax=docker/dockerfile:1
+
+FROM python:3.9
+
+WORKDIR /interactive-map
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+CMD ["python", "run.py"]
