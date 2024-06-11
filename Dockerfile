@@ -1,12 +1,23 @@
-# syntax=docker/dockerfile:1
+FROM python:3.11-alpine
 
-FROM python:3.9
+# Set up environment variables for Python
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR /interactive-map
+# Create and set the working directory
+WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+# Copy only the requirements file first to leverage Docker caching
+COPY requirements.txt .
 
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire application code
 COPY . .
 
-CMD ["python", "run.py"]
+# Expose the port your application will run on
+EXPOSE 8080
+
+# Specify the command to run on container start
+CMD ["python", "src/app.py"]
