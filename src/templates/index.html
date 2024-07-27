@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalistic Modern Webpage</title>
-    <link rel="stylesheet" href="../static/style.css">
-</head>
+{% block title %} home {% endblock %}
 
-<body>
-    <header>
-        <h1>Welcome to My Modern Webpage</h1>
-    </header>
-    <main>
-        <section class="box box-small">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </section>
-        <section class="box box-medium">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.</p>
-        </section>
-        <section class="box box-large">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 My Modern Webpage. All rights reserved.</p>
-    </footer>
-</body>
+{% block content %}
+<form action="/submit" method="post">
+    <label for="band">Band:</label>
+    <select id="band" name="band">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
 
-</html>
+    <label for="designation">Designation:</label>
+    <select id="designation" name="designation">
+        <option value="gen">General needs</option>
+        <option value="oap">OAP</option>
+        <option value="soap">Sheltered OAP</option>
+    </select>
+
+    <label for="postcode">Area:</label>
+    <select id="postcode" name="postcode">
+        <option value="NP7">Abergavenny</option>
+        <option value="NP26">Caldicot</option>
+        <option value="NP16">Chepstow</option>
+        <option value="NP25">Monmouth</option>
+        <option value="NP15">Usk</option>
+    </select>
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
