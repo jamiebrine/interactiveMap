@@ -1,62 +1,13 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
 
-body {
-  background-color: #f4f4f4;
-  color: #333;
+/* Your custom styles go here */
+
+form {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-header {
-  background-color: #3d9970;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0;
-}
-
-main {
   flex: 1;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 1rem;
 }
 
-.box {
-  background-color: #ffffff;
-  border: 1px solid #3d9970;
-  border-radius: 5px;
-  padding: 1rem;
-  margin: 0.5rem 0;
-  width: 80%;
-  max-width: 600px;
-}
-
-.box-small {
-  font-size: 0.9rem;
-}
-
-.box-medium {
-  font-size: 1rem;
-}
-
-.box-large {
-  font-size: 1.1rem;
-}
-
-footer {
-  background-color: #3d9970;
-  color: white;
-  text-align: center;
-  padding: 1rem;
+h1 {
+  color: green;
 }

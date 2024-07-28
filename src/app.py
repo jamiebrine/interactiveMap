@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import socket
 import json
+from datetime import date
 
 app = Flask(__name__)
 
@@ -18,14 +19,13 @@ def submit():
     band = request.form.get('band')
     designation = request.form.get('designation')
     postcode = request.form.get('postcode')
-    matches = calculateAverageWait(band,designation,postcode)
 
-    #return str(len(matches))
+    averageWait = calculateAverageWait(band,designation,postcode)
+    
+    if averageWait == -1:
+        return "No previous lets found"
+    return str(averageWait)
 
-    output = ""
-    for item in matches:
-        output += f"{item[0]}, {item[1]}\n"
-    return output
 
 def calculateAverageWait(band, designation, postcode):
 
@@ -34,9 +34,28 @@ def calculateAverageWait(band, designation, postcode):
         data = json.load(file)
 
     # Filter data based on band, designation, and area
-    filteredData = [(item['letDate'], item['priorityDate']) for item in data if item['band'] == band and item['designation'] == designation and item['postcode'] == postcode]
+    filteredData = [(item['priorityDate'], item['letDate']) for item in data if item['band'] == band and item['designation'] == designation and item['postcode'] == postcode]
 
-    return filteredData
+    count = 0
+    sumDays = 0
+
+    for item in filteredData:
+        count += 1
+        initDate = parseDate(item[0])
+        endDate = parseDate(item[1])
+        sumDays += (endDate - initDate).days
+
+    if count == 0:
+        return -1
+    
+    return int(float(sumDays) / len(filteredData))
+
+def parseDate(dateString):
+    y = int("20" + dateString[6:8])
+    m = int(dateString[3:5])
+    d = int(dateString[0:2])
+
+    return date(y,m,d)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)
