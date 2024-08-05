@@ -3,32 +3,53 @@
 {% block title %} home {% endblock %}
 
 {% block content %}
-<form action="/submit" method="post">
-    <label for="band">Band:</label>
-    <select id="band" name="band">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
+<div id="pageContainer">
+    <div id="contentWrap">
+        <form action="/submit" method="post" id="mainForm">
+            <label for="band">Band:</label>
+            <select id="band" name="band">
+                <option value="" disabled selected></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
 
-    <label for="designation">Designation:</label>
-    <select id="designation" name="designation">
-        <option value="gen">General needs</option>
-        <option value="oap">OAP</option>
-        <option value="soap">Sheltered OAP</option>
-    </select>
+            <label for="bedrooms">Bedrooms:</label>
+            <select id="bedrooms" name="bedrooms">
+                <option value="" disabled selected></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
 
-    <label for="postcode">Area:</label>
-    <select id="postcode" name="postcode">
-        <option value="NP7">Abergavenny</option>
-        <option value="NP26">Caldicot</option>
-        <option value="NP16">Chepstow</option>
-        <option value="NP25">Monmouth</option>
-        <option value="NP15">Usk</option>
-    </select>
+            <label for="designation">Designation:</label>
+            <select id="designation" name="designation">
+                <option value="" disabled selected></option>
+                <option value="gen">General needs</option>
+                <option value="oap">OAP</option>
+                <option value="soap">Sheltered OAP</option>
+            </select>
 
-    <input type="submit" value="Submit">
-</form>
+            <label for="postcode">Area:</label>
+            <select id="postcode" name="postcode">
+                <option value="" disabled selected></option>
+                <option value="NP7">Abergavenny</option>
+                <option value="NP26">Caldicot</option>
+                <option value="NP16">Chepstow</option>
+                <option value="NP25">Monmouth</option>
+                <option value="NP15">Usk</option>
+            </select>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <div id="results">
+            <p>{{result}}</p>
+        </div>
+    </div>
+
+    <footer>&copy; Jamie Brine</footer>
+</div>
 {% endblock %}

@@ -1,13 +1,45 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
 
-/* Your custom styles go here */
+* {
+  box-sizing: border-box;
+}
 
-form {
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#contentWrap {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  @media screen and (min-width: 600px) {
+    flex-direction: row;
+  }
+}
+
+#mainForm {
   display: flex;
   flex: 1;
   flex-direction: column;
+  gap: 10px;
+
+  padding: 20px;
+  @media screen and (min-width: 600px) {
+    flex-basis: 40%;
+  }
 }
 
-h1 {
-  color: green;
+#results {
+  padding: 20px;
+  @media screen and (min-width: 600px) {
+    flex-basis: 60%;
+  }
 }

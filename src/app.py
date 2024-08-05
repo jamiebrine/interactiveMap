@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
-import socket
 import json
+import socket
 from datetime import date
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ def index():
     try:
         host_name = socket.gethostname()
         host_ip = socket.gethostbyname(host_name)
-        return render_template('index.html', hostname=host_name, ip=host_ip)
+        return render_template('index.html', result="...")
     except:
         return render_template('error.html')
 
@@ -19,22 +19,22 @@ def submit():
     band = request.form.get('band')
     designation = request.form.get('designation')
     postcode = request.form.get('postcode')
+    bedrooms = request.form.get('bedrooms')
 
-    averageWait = calculateAverageWait(band,designation,postcode)
-    
+    averageWait = calculateAverageWait(band,designation,postcode,bedrooms)
+
     if averageWait == -1:
-        return "No previous lets found"
-    return str(averageWait)
+        return render_template('index.html', result="No previous lets found")
+    return render_template('index.html', result=str(averageWait))
 
-
-def calculateAverageWait(band, designation, postcode):
+def calculateAverageWait(band, designation, postcode, bedrooms):
 
     # Load data from data.json
     with open('src/data.json') as file:
         data = json.load(file)
 
     # Filter data based on band, designation, and area
-    filteredData = [(item['priorityDate'], item['letDate']) for item in data if item['band'] == band and item['designation'] == designation and item['postcode'] == postcode]
+    filteredData = [(item['priorityDate'], item['letDate']) for item in data if item['band'] == band and item['designation'] == designation and item['postcode'] == postcode and item['bedrooms'] == bedrooms]
 
     count = 0
     sumDays = 0
@@ -51,11 +51,11 @@ def calculateAverageWait(band, designation, postcode):
     return int(float(sumDays) / len(filteredData))
 
 def parseDate(dateString):
-    y = int("20" + dateString[6:8])
-    m = int(dateString[3:5])
-    d = int(dateString[0:2])
+    y = int(dateString[0:4])
+    m = int(dateString[5:7])
+    d = int(dateString[8:10])
 
-    return date(y,m,d)
+    return date(y,m,d)          
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)

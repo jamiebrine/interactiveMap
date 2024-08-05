@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MHA - {% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="src/static/style.css">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 
 <body>
-    <h1>Base header</h1>
-    <div>
-        {% block content %} {% endblock %}
-    </div>
+    {% block content %} {% endblock %}
 </body>
 
 </html>
