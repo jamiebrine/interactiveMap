@@ -27,9 +27,9 @@
             <label for="designation">Designation:</label>
             <select id="designation" name="designation">
                 <option value="" disabled selected></option>
-                <option value="gen">General needs</option>
-                <option value="oap">OAP</option>
-                <option value="soap">Sheltered OAP</option>
+                <option value="gen">Under 60s accomodation</option>
+                <option value="oap">Over 60s accomodation</option>
+                <option value="soap">Sheltered over 60s accomodation</option>
             </select>
 
             <label for="postcode">Area:</label>
@@ -46,7 +46,9 @@
         </form>
 
         <div id="results">
-            <p>{{result}}</p>
+            <h2>{{result}}</h2>
+            <p>{{numLets}}</p>
+            <p>{{parameters}}</p>
         </div>
     </div>
 

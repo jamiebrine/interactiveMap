@@ -1,23 +1,20 @@
-FROM python:3.11-alpine
+# Set base image (host OS)
+FROM --platform=linux/amd64 python:3.7
 
-# Set up environment variables for Python
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# By default, listen on port 8080
+EXPOSE 8080/tcp
 
-# Create and set the working directory
-WORKDIR /app
+# Set the working directory in the container
+WORKDIR /src
 
-# Copy only the requirements file first to leverage Docker caching
+# Copy the dependencies file to the working directory
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install any dependencies
+RUN pip install -r requirements.txt
 
-# Copy the entire application code
-COPY . .
-
-# Expose the port your application will run on
-EXPOSE 8080
+# Copy the content of the local src directory to the working directory
+COPY src .
 
 # Specify the command to run on container start
-CMD ["python", "src/app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
