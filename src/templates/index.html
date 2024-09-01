@@ -17,7 +17,7 @@
         <form action="/submit" method="post" id="mainForm">
             <label for="band">Band:</label>
             <select id="band" name="band">
-                <option value="" class="default-option" disabled selected>...</option>
+                <option value="" disabled selected>...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -26,7 +26,7 @@
 
             <label for="bedrooms">Bedrooms:</label>
             <select id="bedrooms" name="bedrooms">
-                <option value="" class="default-option" disabled selected>...</option>
+                <option value="" disabled selected>...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -35,7 +35,7 @@
 
             <label for="designation">Designation:</label>
             <select id="designation" name="designation">
-                <option value="" class="default-option" disabled selected>...</option>
+                <option value="" disabled selected>...</option>
                 <option value="gen">Under 60s accomodation</option>
                 <option value="oap">Over 60s accomodation</option>
                 <option value="soap">Sheltered over 60s accomodation</option>
@@ -43,7 +43,7 @@
 
             <label for="postcode">Area:</label>
             <select id="postcode" name="postcode">
-                <option value="" class="default-option" disabled selected>...</option>
+                <option value="" disabled selected>...</option>
                 <option value="NP7">Abergavenny</option>
                 <option value="NP26">Caldicot</option>
                 <option value="NP16">Chepstow</option>
@@ -58,12 +58,32 @@
             <p>Some basic text about the calculator and how it works. Lots of text in fact. A whole paragraph of stuff
                 that doesn't change and will always sit here. How
                 lovely!</p>
-            <h2>{{result}}</h2>
-            <p>{{numLets}}</p>
-            <p>{{parameters}}</p>
+            <h2 id="result">Waiting for input</h2>
+            <p id="numLets"></p>
+            <p id="parameters"></p>
         </div>
     </div>
 
     <footer>&copy; Jamie Brine</footer>
+
+    <script>
+        document.getElementById('mainForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            const formData = new FormData(this);
+
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = data.result;
+                    document.getElementById('numLets').textContent = data.numLets;
+                    document.getElementById('parameters').textContent = data.parameters;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
 </div>
 {% endblock %}

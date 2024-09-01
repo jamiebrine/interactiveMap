@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 import json
 from datetime import date
 import os
@@ -22,12 +22,14 @@ designationDict = {
 @app.route("/")
 def index():
     try:
-        return render_template('index.html',result="Waiting for input")
+        return render_template('index.html')
     except:
         return render_template('error.html')
 
-@app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['POST', 'GET'])
 def submit():
+    if request.method == 'GET':
+        return redirect(url_for('index'))
     band = request.form.get('band')
     designation = request.form.get('designation')
     postcode = request.form.get('postcode')
@@ -40,8 +42,13 @@ def submit():
     parametersOut = f'(Band {band}, {designationDict[designation]}, {bedrooms} bedroom properties in {areaDict[postcode]})'
 
     if averageWait == -1:
-        return render_template('index.html', result="No recent lets", parameters=parametersOut)
-    return render_template('index.html', result=str(averageWait[0]) + " months", numLets=f'Based on {averageWait[1]} previous lets', parameters=parametersOut)
+        resultOut = "No recent lets"
+        numLetsOut = ""
+    else:
+        resultOut = str(averageWait[0]) + " months"
+        numLetsOut = f'Based on {averageWait[1]} previous lets'
+
+    return jsonify(result=resultOut, numLets=numLetsOut, parameters=parametersOut)
 
 def calculateAverageWait(band, designation, postcode, bedrooms):
 

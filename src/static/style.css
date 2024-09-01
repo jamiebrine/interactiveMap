@@ -11,6 +11,11 @@
 body {
   font-family: "Omnes", Arial, sans-serif;
   color: #3c3c3b;
+
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
 }
 
 h1 {
@@ -49,7 +54,6 @@ select {
   border-radius: 4px;
   padding: 8px;
   font-size: 14px;
-  color: #333;
   width: 100%;
 }
 
@@ -59,8 +63,21 @@ select:hover {
   box-shadow: 0 0 0 2px rgba(116, 175, 38, 0.2);
 }
 
-.default-option {
-  color: #888888;
+input {
+  appearance: none;
+  background-color: #b3cf81;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+}
+
+input:hover {
+  outline: none;
+  border-color: #74af26;
+  box-shadow: 0 0 0 2px rgba(116, 175, 38, 0.2);
 }
 
 #contentWrap {
