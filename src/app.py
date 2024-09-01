@@ -36,7 +36,7 @@ def submit():
     bedrooms = request.form.get('bedrooms')
 
     if band == None or designation == None or postcode == None or bedrooms == None:
-        return render_template('index.html', result="Please fill out all fields")
+        return jsonify(result="Please fill out all fields", numLets="", parameters="")
     
     averageWait = calculateAverageWait(band,designation,postcode,bedrooms)
     parametersOut = f'(Band {band}, {designationDict[designation]}, {bedrooms} bedroom properties in {areaDict[postcode]})'

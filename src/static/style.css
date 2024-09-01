@@ -4,7 +4,9 @@
   --header-height: 75px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -20,6 +22,9 @@ body {
 
 h1 {
   color: #74af26;
+  @media screen and (max-width: 400px) {
+    font-size: 1.5em;
+  }
 }
 
 header {
@@ -50,6 +55,7 @@ footer {
 select {
   appearance: none;
   background-color: white;
+  color: #3c3c3b;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 8px;
@@ -66,6 +72,7 @@ select:hover {
 input {
   appearance: none;
   background-color: #b3cf81;
+  color: #3c3c3b;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 8px;
@@ -84,8 +91,9 @@ input:hover {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  padding: 15px;
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 768px) {
     flex-direction: row;
   }
 }
@@ -100,16 +108,18 @@ input:hover {
   flex: 1;
   flex-direction: column;
   gap: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 
-  padding: 20px;
-  @media screen and (min-width: 600px) {
+  padding: 10px;
+  @media screen and (min-width: 768px) {
     flex-basis: 40%;
   }
 }
 
 #results {
-  padding: 20px;
-  @media screen and (min-width: 600px) {
+  padding: 10px;
+  @media screen and (min-width: 768px) {
     flex-basis: 60%;
   }
   justify-self: stretch;
@@ -118,4 +128,8 @@ input:hover {
 
 #spacer {
   height: var(--header-height);
+}
+
+#fixedPara {
+  margin-top: 0px;
 }
