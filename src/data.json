@@ -7984,14 +7984,6 @@
     "postcode": "NP15"
 },
 {
-    "letDate": "2023-07-31",
-    "priorityDate": "2022-04-26",
-    "band": "4",
-    "bedrooms": "1",
-    "designation": "gen",
-    "postcode": "NP7"
-},
-{
     "letDate": "2021-07-19",
     "priorityDate": "2021-04-15",
     "band": "4",
@@ -8040,28 +8032,12 @@
     "postcode": "NP7"
 },
 {
-    "letDate": "2023-10-05",
-    "priorityDate": "2023-09-22",
-    "band": "4",
-    "bedrooms": "1",
-    "designation": "gen",
-    "postcode": "NP26"
-},
-{
     "letDate": "2024-03-06",
     "priorityDate": "2024-01-31",
     "band": "4",
     "bedrooms": "1",
     "designation": "soap",
     "postcode": "NP15"
-},
-{
-    "letDate": "2024-03-06",
-    "priorityDate": "2023-10-03",
-    "band": "4",
-    "bedrooms": "1",
-    "designation": "gen",
-    "postcode": "NP16"
 },
 {
     "letDate": "2021-10-28",
@@ -8117,14 +8093,6 @@
     "band": "4",
     "bedrooms": "2",
     "designation": "soap",
-    "postcode": "NP7"
-},
-{
-    "letDate": "2023-04-21",
-    "priorityDate": "2022-03-14",
-    "band": "4",
-    "bedrooms": "2",
-    "designation": "gen",
     "postcode": "NP7"
 }
 ]

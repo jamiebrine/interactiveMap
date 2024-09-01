@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %} home {% endblock %}
+{% block title %} Waiting Times Calculator {% endblock %}
 
 {% block content %}
 <div id="pageContainer">
+
+    <header>
+        <h1>Waiting Times Calculator</h1>
+        <img src="https://www.monmouthshirehousing.co.uk/wp-content/uploads/2024/02/Monmouthsire-Logo-1.svg"
+            alt="Website logo" id="logo">
+
+    </header>
+
+    <div id="spacer"></div>
     <div id="contentWrap">
         <form action="/submit" method="post" id="mainForm">
             <label for="band">Band:</label>
             <select id="band" name="band">
-                <option value="" disabled selected></option>
+                <option value="" class="default-option" disabled selected>...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -17,7 +26,7 @@
 
             <label for="bedrooms">Bedrooms:</label>
             <select id="bedrooms" name="bedrooms">
-                <option value="" disabled selected></option>
+                <option value="" class="default-option" disabled selected>...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -26,7 +35,7 @@
 
             <label for="designation">Designation:</label>
             <select id="designation" name="designation">
-                <option value="" disabled selected></option>
+                <option value="" class="default-option" disabled selected>...</option>
                 <option value="gen">Under 60s accomodation</option>
                 <option value="oap">Over 60s accomodation</option>
                 <option value="soap">Sheltered over 60s accomodation</option>
@@ -34,7 +43,7 @@
 
             <label for="postcode">Area:</label>
             <select id="postcode" name="postcode">
-                <option value="" disabled selected></option>
+                <option value="" class="default-option" disabled selected>...</option>
                 <option value="NP7">Abergavenny</option>
                 <option value="NP26">Caldicot</option>
                 <option value="NP16">Chepstow</option>
@@ -46,6 +55,9 @@
         </form>
 
         <div id="results">
+            <p>Some basic text about the calculator and how it works. Lots of text in fact. A whole paragraph of stuff
+                that doesn't change and will always sit here. How
+                lovely!</p>
             <h2>{{result}}</h2>
             <p>{{numLets}}</p>
             <p>{{parameters}}</p>

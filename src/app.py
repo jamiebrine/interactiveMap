@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
 import json
-import socket
 from datetime import date
 import os
 
@@ -23,9 +22,7 @@ designationDict = {
 @app.route("/")
 def index():
     try:
-        host_name = socket.gethostname()
-        host_ip = socket.gethostbyname(host_name)
-        return render_template('index.html', result="Waiting for input", host_name=host_name, host_ip=host_ip)
+        return render_template('index.html',result="Waiting for input")
     except:
         return render_template('error.html')
 
@@ -43,20 +40,17 @@ def submit():
     parametersOut = f'(Band {band}, {designationDict[designation]}, {bedrooms} bedroom properties in {areaDict[postcode]})'
 
     if averageWait == -1:
-        return render_template('index.html', result="No such lets in the past 3 years", parameters=parametersOut)
+        return render_template('index.html', result="No recent lets", parameters=parametersOut)
     return render_template('index.html', result=str(averageWait[0]) + " months", numLets=f'Based on {averageWait[1]} previous lets', parameters=parametersOut)
 
 def calculateAverageWait(band, designation, postcode, bedrooms):
 
-    # Construct the file path relative to the location of this script
     file_path = os.path.join(os.path.dirname(__file__), 'data.json')
 
     try:
-        # Load data from data.json
         with open(file_path) as file:
             data = json.load(file)
 
-        # Filter data based on band, designation, and area
         filteredData = [(item['priorityDate'], item['letDate']) for item in data if item['band'] == band and item['designation'] == designation and item['postcode'] == postcode and item['bedrooms'] == bedrooms]
 
         sumDays = 0
