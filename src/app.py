@@ -19,6 +19,10 @@ designationDict = {
     "soap": "sheltered over 60s accomodation",
 }
 
+# [x,y] = [band,bedrooms]
+bandSizes = [[230,130,30,26],[170,260,140,50],[480,190,80,20],[600,420,220,50]]
+bandSizesOAP = [[40,50],[40,20],[120,60],[340,120]]
+
 @app.route("/")
 def index():
     try:
@@ -45,8 +49,8 @@ def submit():
         resultOut = "No recent lets"
         numLetsOut = ""
     else:
-        resultOut = str(averageWait[0]) + " months"
-        numLetsOut = f'Based on {averageWait[1]} previous lets'
+        resultOut = f'{averageWait[0]} months'
+        numLetsOut = f'Based on {averageWait[1]} previous lets. There are around {averageWait[2]} people in this band waiting for a property of this size'
 
     return jsonify(result=resultOut, numLets=numLetsOut, parameters=parametersOut)
 
@@ -71,8 +75,13 @@ def calculateAverageWait(band, designation, postcode, bedrooms):
             return -1
         
         avgWait = (sumDays // (30 * len(filteredData))) + 1
+
+        if designation == "gen":
+            numInBand = bandSizes[int(band)-1][int(bedrooms)-1]
+        else:  
+            numInBand = bandSizesOAP[int(band)-1][int(bedrooms)-1]
         
-        return (avgWait, len(filteredData))
+        return (avgWait, len(filteredData), numInBand)
 
     except FileNotFoundError:
         return "Data file not found"
