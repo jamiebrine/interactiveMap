@@ -117,8 +117,9 @@ button:hover {
 }
 
 #introduction {
-  gap: 10px;
+  flex-direction: column;
 }
+
 #infoContent {
   width: 100%;
   z-index: 1;
