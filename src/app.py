@@ -20,9 +20,10 @@ designationDict = {
 }
 
 # [x,y] = [band,bedrooms]
-bandSizes = [[230,130,30,26],[170,260,140,50],[480,190,80,20],[600,420,220,50]]
-bandSizesOAP = [[40,50],[40,20],[120,60],[340,120]]
+bandSizes = [[230,125,25,30],[390,380,160,75],[870,570,230,90],[1460,990,450,105]]
+bandSizesOAP = [[35,45],[75,60],[190,120],[520,240]]
 
+# Default route
 @app.route("/")
 def index():
     try:
@@ -30,10 +31,14 @@ def index():
     except:
         return render_template('error.html')
 
+# Runs on form submission
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
+
+    # Redirects to index if GET request (from user copy-pasting URL)
     if request.method == 'GET':
         return redirect(url_for('index'))
+    
     band = request.form.get('band')
     designation = request.form.get('designation')
     postcode = request.form.get('postcode')
@@ -42,20 +47,24 @@ def submit():
     if band == None or designation == None or postcode == None or bedrooms == None:
         return jsonify(result="Please fill out all fields", numLets="", parameters="")
     
+    # Format the bottom text for all possible outcomes
     averageWait = calculateAverageWait(band,designation,postcode,bedrooms)
     parametersOut = f'(Band {band}, {designationDict[designation]}, {bedrooms} bedroom properties in {areaDict[postcode]})'
 
+    # Format the top text depending on the outcome
     if averageWait == -1:
         resultOut = "No recent lets"
         numLetsOut = ""
+    elif averageWait[0] == -1:
+        resultOut = f'Not enough letting information to calculate average wait time, based on {averageWait[1]} previous lets'
+        numLetsOut = f'There are around {averageWait[2]} people in this band or higher waiting for a property of this size. Click below for more information on how properties are allocated'
     else:
-        resultOut = f'{averageWait[0]} months'
-        numLetsOut = f'Based on {averageWait[1]} previous lets. There are around {averageWait[2]} people in this band waiting for a property of this size'
+        resultOut = f'{averageWait[0]} months, based on {averageWait[1]} previous lets'
+        numLetsOut = f'There are around {averageWait[2]} people in this band or higher waiting for a property of this size. Click below for more information on how properties are allocated'
 
     return jsonify(result=resultOut, numLets=numLetsOut, parameters=parametersOut)
 
 def calculateAverageWait(band, designation, postcode, bedrooms):
-
     file_path = os.path.join(os.path.dirname(__file__), 'data.json')
 
     try:
@@ -73,13 +82,15 @@ def calculateAverageWait(band, designation, postcode, bedrooms):
 
         if len(filteredData) == 0:
             return -1
+
+        # Hardcoded cumulative band sizes
+        numInBand = bandSizes[int(band)-1][int(bedrooms)-1] if designation == "gen" else bandSizesOAP[int(band)-1][int(bedrooms)-1]
+
+        # Does not calculate average wait time if there are less than 6 recent lets
+        if len(filteredData) < 6:
+            return (-1, len(filteredData), numInBand)
         
         avgWait = (sumDays // (30 * len(filteredData))) + 1
-
-        if designation == "gen":
-            numInBand = bandSizes[int(band)-1][int(bedrooms)-1]
-        else:  
-            numInBand = bandSizesOAP[int(band)-1][int(bedrooms)-1]
         
         return (avgWait, len(filteredData), numInBand)
 

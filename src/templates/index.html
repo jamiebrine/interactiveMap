@@ -17,44 +17,6 @@
                 number of
                 lets to each band in the last few years, as well as and the current number of applicants waiting in
                 that band for that property size.</p>
-
-            <div id="infoBox">
-                <button id="infoButton" tabindex="1">More info</button>
-                <div id="infoContent" style="display: none;">
-                    <p>The time you will wait for a property will depend on several factors. For example:</p>
-                    <ul>
-                        <li>The size and type of property you need,</li>
-                        <li>The availability of properties,</li>
-                        <li>Your priority band and priority date,</li>
-                        <li>The number of other people bidding,</li>
-                        <li>Its location (town versus rural area), and</li>
-                        <li>Your application meeting the criteria for that property such as <a
-                                href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=204"
-                                tabindex="2">age</a>,
-                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1332%20Homesearch%20Adaptations%20Booklet.pdf"
-                                tabindex="2">adaptations</a>,
-                            an
-                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=203"
-                                tabindex="2">intermediate
-                                market rent property</a>, or whether it has a
-                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=25"
-                                tabindex="2">rural
-                                local connection</a>
-                        </li>
-                    </ul>
-                    <p>Please check the advert description for further information as it will explain how the
-                        property
-                        will be matched to a household, by priority band and then by priority date.</p>
-                    <p>More information on how the Homesearch scheme works can be found on the
-                        <a href="https://www.monmouthshirehomesearch.co.uk/choice/help.aspx" tabindex="2">Homesearch
-                            Help
-                            page</a> or
-                        <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1308%20Homesearch%20Handbook_June%202022.pdf"
-                            tabindex="2">Homesearch
-                            Handbook</a>.
-                    </p>
-                </div>
-            </div>
         </div>
 
         <div class="displayBox" id="mainContent">
@@ -102,6 +64,44 @@
                 <h2 id="result">Waiting for input</h2>
                 <p id="numLets"></p>
                 <p id="parameters"></p>
+
+                <div id="infoBox">
+                    <button id="infoButton" tabindex="1" style="display: none;">More info</button>
+                    <div id="infoContent" style="display: none;">
+                        <p>The time you will wait for a property will depend on several factors. For example:</p>
+                        <ul>
+                            <li>The size and type of property you need,</li>
+                            <li>The availability of properties,</li>
+                            <li>Your priority band and priority date,</li>
+                            <li>The number of other people bidding,</li>
+                            <li>Its location (town versus rural area), and</li>
+                            <li>Your application meeting the criteria for that property such as <a
+                                    href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=204"
+                                    tabindex="2">age</a>,
+                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1332%20Homesearch%20Adaptations%20Booklet.pdf"
+                                    tabindex="2">adaptations</a>,
+                                an
+                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=203"
+                                    tabindex="2">intermediate
+                                    market rent property</a>, or whether it has a
+                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=25"
+                                    tabindex="2">rural
+                                    local connection</a>
+                            </li>
+                        </ul>
+                        <p>Please check the advert description for further information as it will explain how the
+                            property
+                            will be matched to a household, by priority band and then by priority date.</p>
+                        <p>More information on how the Homesearch scheme works can be found on the
+                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/help.aspx" tabindex="2">Homesearch
+                                Help
+                                page</a> or
+                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1308%20Homesearch%20Handbook_June%202022.pdf"
+                                tabindex="2">Homesearch
+                                Handbook</a>.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -121,8 +121,15 @@
                     document.getElementById('result').textContent = data.result;
                     document.getElementById('numLets').textContent = data.numLets;
                     document.getElementById('parameters').textContent = data.parameters;
-                    document.getElementById('infoContent').style.display = 'none';
-                    document.getElementById('infoButton').textContent = 'More info';
+
+                    if (data.numLets != "") {
+                        document.getElementById('infoButton').style.display = 'block';
+                        document.getElementById('infoContent').style.display = 'none';
+                    } else {
+                        document.getElementById('infoButton').style.display = 'none';
+                    }
+
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
                 })
                 .catch(error => console.error('Error:', error));
         });
@@ -133,7 +140,10 @@
             if (infoContent.style.display === 'none') {
                 infoContent.style.display = 'block';
                 infoButton.textContent = 'Hide info';
-            } else {
+
+                infoContent.scrollIntoView({ behavior: 'smooth' });
+            }
+            else {
                 infoContent.style.display = 'none';
                 infoButton.textContent = 'More info';
             }

@@ -4,7 +4,7 @@
   --header-height: 75px;
   --primary-color: #003944;
   --secondary-color: #3cb6e7;
-  --accent-color: #fbc51d;
+  --accent-color: #ed008c;
   --text-color: #3c3c3b;
 }
 
@@ -37,7 +37,7 @@ body::before {
   background-position: bottom;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  opacity: 0.35;
+  opacity: 0.3;
   z-index: -1;
 }
 
@@ -46,10 +46,6 @@ h1 {
   @media screen and (max-width: 400px) {
     font-size: 1.5em;
   }
-}
-
-h2 {
-  color: var(--primary-color);
 }
 
 header {
@@ -66,17 +62,7 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-select {
-  appearance: none;
-  background-color: white;
-  color: var(--text-color);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
-  font-size: 14px;
-  width: 100%;
-}
-
+select,
 input,
 button {
   appearance: none;
@@ -95,6 +81,12 @@ input {
 
 button {
   background-color: var(--accent-color);
+  color: white;
+}
+
+select {
+  width: 100%;
+  font-weight: normal;
 }
 
 select:hover,
@@ -112,22 +104,12 @@ button:hover {
   padding: 15px;
 }
 
-#logo {
+#spacer {
   height: var(--header-height);
 }
 
-#introduction {
-  flex-direction: column;
-}
-
-#infoContent {
-  width: 100%;
-  z-index: 1;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  margin-top: 10px;
+#logo {
+  height: var(--header-height);
 }
 
 #mainContent {
@@ -165,11 +147,27 @@ button:hover {
   }
 }
 
+#numLets,
+#parameters {
+  font-weight: 500;
+  color: black;
+}
+
+#result {
+  color: black;
+}
+
 #result,
 #fixedPara {
   margin-top: 0px;
 }
 
-#spacer {
-  height: var(--header-height);
+#infoContent {
+  width: 100%;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 10px;
 }
