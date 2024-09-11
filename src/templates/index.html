@@ -1,153 +1,164 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %} Waiting Times Calculator {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting Times Calculator</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://fonts.cdnfonts.com/css/omnes-2" rel="stylesheet">
+    <link rel="icon" href="../static/logo.svg" type="image/svg+xml">
+</head>
 
-{% block content %}
-<div id="pageContainer">
+<body>
+    <div id="pageContainer">
 
-    <header>
-        <h1>Waiting Times Calculator</h1>
-        <img src="../static/logo.svg" alt="Website logo" id="logo">
-    </header>
+        <header>
+            <h1>Waiting Times Calculator</h1>
+            <img src="../static/logo.svg" alt="Website logo" id="logo">
+        </header>
 
-    <div id="spacer"></div>
-    <div id="contentWrap">
-        <div class="displayBox" id="introduction">
-            <p id="fixedPara">Welcome to the Monmouthshire Homesearch calculator. The calculator will show the
-                number of
-                lets to each band in the last few years, as well as and the current number of applicants waiting in
-                that band for that property size.</p>
-        </div>
+        <div id="spacer"></div>
+        <div id="contentWrap">
+            <div class="displayBox" id="introduction">
+                <p id="fixedPara">Welcome to the Monmouthshire Homesearch calculator. The calculator will show the
+                    number of
+                    lets to each band in the last few years, as well as and the current number of applicants waiting in
+                    that band for that property size.</p>
+            </div>
 
-        <div class="displayBox" id="mainContent">
-            <form action="/submit" method="post" id="mainForm">
-                <label for="band">Band:</label>
-                <select id="band" name="band" tabindex="3">
-                    <option value="" disabled selected>...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
+            <div class="displayBox" id="mainContent">
+                <form action="/submit" method="post" id="mainForm">
+                    <label for="band">Band:</label>
+                    <select id="band" name="band" tabindex="3">
+                        <option value="" disabled selected>...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
 
-                <label for="bedrooms">Bedrooms:</label>
-                <select id="bedrooms" name="bedrooms" tabindex="3">
-                    <option value="" disabled selected>...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
+                    <label for="bedrooms">Bedrooms:</label>
+                    <select id="bedrooms" name="bedrooms" tabindex="3">
+                        <option value="" disabled selected>...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
 
-                <label for="designation">Designation:</label>
-                <select id="designation" name="designation" tabindex="3">
-                    <option value="" disabled selected>...</option>
-                    <option value="gen">Under 60s accomodation</option>
-                    <option value="oap">Over 60s accomodation</option>
-                    <option value="soap">Sheltered over 60s accomodation</option>
-                </select>
+                    <label for="designation">Designation:</label>
+                    <select id="designation" name="designation" tabindex="3">
+                        <option value="" disabled selected>...</option>
+                        <option value="gen">Under 60s accomodation</option>
+                        <option value="oap">Over 60s accomodation</option>
+                        <option value="soap">Sheltered over 60s accomodation</option>
+                    </select>
 
-                <label for="postcode">Area:</label>
-                <select id="postcode" name="postcode" tabindex="3">
-                    <option value="" disabled selected>...</option>
-                    <option value="NP7">Abergavenny</option>
-                    <option value="NP26">Caldicot</option>
-                    <option value="NP16">Chepstow</option>
-                    <option value="NP25">Monmouth</option>
-                    <option value="NP15">Usk</option>
-                </select>
+                    <label for="postcode">Area:</label>
+                    <select id="postcode" name="postcode" tabindex="3">
+                        <option value="" disabled selected>...</option>
+                        <option value="NP7">Abergavenny</option>
+                        <option value="NP26">Caldicot</option>
+                        <option value="NP16">Chepstow</option>
+                        <option value="NP25">Monmouth</option>
+                        <option value="NP15">Usk</option>
+                    </select>
 
-                <input type="submit" value="Submit" tabindex="3">
-            </form>
+                    <input type="submit" value="Submit" tabindex="3">
+                </form>
 
-            <div id="results">
-                <h2 id="result">Waiting for input</h2>
-                <p id="numLets"></p>
-                <p id="parameters"></p>
+                <div id="results">
+                    <h2 id="result">Waiting for input</h2>
+                    <p id="numLets"></p>
+                    <p id="parameters"></p>
 
-                <div id="infoBox">
-                    <button id="infoButton" tabindex="1" style="display: none;">More info</button>
-                    <div id="infoContent" style="display: none;">
-                        <p>The time you will wait for a property will depend on several factors. For example:</p>
-                        <ul>
-                            <li>The size and type of property you need,</li>
-                            <li>The availability of properties,</li>
-                            <li>Your priority band and priority date,</li>
-                            <li>The number of other people bidding,</li>
-                            <li>Its location (town versus rural area), and</li>
-                            <li>Your application meeting the criteria for that property such as <a
-                                    href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=204"
-                                    tabindex="2">age</a>,
-                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1332%20Homesearch%20Adaptations%20Booklet.pdf"
-                                    tabindex="2">adaptations</a>,
-                                an
-                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=203"
-                                    tabindex="2">intermediate
-                                    market rent property</a>, or whether it has a
-                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=25"
-                                    tabindex="2">rural
-                                    local connection</a>
-                            </li>
-                        </ul>
-                        <p>Please check the advert description for further information as it will explain how the
-                            property
-                            will be matched to a household, by priority band and then by priority date.</p>
-                        <p>More information on how the Homesearch scheme works can be found on the
-                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/help.aspx" tabindex="2">Homesearch
-                                Help
-                                page</a> or
-                            <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1308%20Homesearch%20Handbook_June%202022.pdf"
-                                tabindex="2">Homesearch
-                                Handbook</a>.
-                        </p>
+                    <div id="infoBox">
+                        <button id="infoButton" tabindex="1" style="display: none;">More info</button>
+                        <div id="infoContent" style="display: none;">
+                            <p>The time you will wait for a property will depend on several factors. For example:</p>
+                            <ul>
+                                <li>The size and type of property you need,</li>
+                                <li>The availability of properties,</li>
+                                <li>Your priority band and priority date,</li>
+                                <li>The number of other people bidding,</li>
+                                <li>Its location (town versus rural area), and</li>
+                                <li>Your application meeting the criteria for that property such as <a
+                                        href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=204"
+                                        tabindex="2">age</a>,
+                                    <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1332%20Homesearch%20Adaptations%20Booklet.pdf"
+                                        tabindex="2">adaptations</a>,
+                                    an
+                                    <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=203"
+                                        tabindex="2">intermediate
+                                        market rent property</a>, or whether it has a
+                                    <a href="https://www.monmouthshirehomesearch.co.uk/choice/content.aspx?pageid=25"
+                                        tabindex="2">rural
+                                        local connection</a>
+                                </li>
+                            </ul>
+                            <p>Please check the advert description for further information as it will explain how the
+                                property
+                                will be matched to a household, by priority band and then by priority date.</p>
+                            <p>More information on how the Homesearch scheme works can be found on the
+                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/help.aspx"
+                                    tabindex="2">Homesearch
+                                    Help
+                                    page</a> or
+                                <a href="https://www.monmouthshirehomesearch.co.uk/choice/uploads/MHA1308%20Homesearch%20Handbook_June%202022.pdf"
+                                    tabindex="2">Homesearch
+                                    Handbook</a>.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        document.getElementById('mainForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
+        <script>
+            document.getElementById('mainForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the form from submitting the traditional way
 
-            const formData = new FormData(this);
+                const formData = new FormData(this);
 
-            fetch('/submit', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('result').textContent = data.result;
-                    document.getElementById('numLets').textContent = data.numLets;
-                    document.getElementById('parameters').textContent = data.parameters;
-
-                    if (data.numLets != "") {
-                        document.getElementById('infoButton').style.display = 'block';
-                        document.getElementById('infoContent').style.display = 'none';
-                    } else {
-                        document.getElementById('infoButton').style.display = 'none';
-                    }
-
-                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                fetch('/submit', {
+                    method: 'POST',
+                    body: formData
                 })
-                .catch(error => console.error('Error:', error));
-        });
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('result').textContent = data.result;
+                        document.getElementById('numLets').textContent = data.numLets;
+                        document.getElementById('parameters').textContent = data.parameters;
 
-        document.getElementById('infoButton').addEventListener('click', function () {
-            var infoContent = document.getElementById('infoContent');
-            var infoButton = document.getElementById('infoButton');
-            if (infoContent.style.display === 'none') {
-                infoContent.style.display = 'block';
-                infoButton.textContent = 'Hide info';
+                        if (data.numLets != "") {
+                            document.getElementById('infoButton').style.display = 'block';
+                            document.getElementById('infoContent').style.display = 'none';
+                        } else {
+                            document.getElementById('infoButton').style.display = 'none';
+                        }
 
-                infoContent.scrollIntoView({ behavior: 'smooth' });
-            }
-            else {
-                infoContent.style.display = 'none';
-                infoButton.textContent = 'More info';
-            }
-        });
-    </script>
-</div>
-{% endblock %}
+                        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+
+            document.getElementById('infoButton').addEventListener('click', function () {
+                var infoContent = document.getElementById('infoContent');
+                var infoButton = document.getElementById('infoButton');
+                if (infoContent.style.display === 'none') {
+                    infoContent.style.display = 'block';
+                    infoButton.textContent = 'Hide info';
+
+                    infoContent.scrollIntoView({ behavior: 'smooth' });
+                }
+                else {
+                    infoContent.style.display = 'none';
+                    infoButton.textContent = 'More info';
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>

@@ -57,10 +57,10 @@ def submit():
         numLetsOut = ""
     elif averageWait[0] == -1:
         resultOut = f'Not enough letting information to calculate average wait time, based on {averageWait[1]} previous lets'
-        numLetsOut = f'There are around {averageWait[2]} people in this band or higher waiting for a property of this size. Click below for more information on how properties are allocated'
+        numLetsOut = f'There are around {averageWait[2]} people in this band or higher waiting for a property of this size. Click below for more information on how properties are allocated.'
     else:
         resultOut = f'{averageWait[0]} months, based on {averageWait[1]} previous lets'
-        numLetsOut = f'There are around {averageWait[2]} people in this band or higher waiting for a property of this size. Click below for more information on how properties are allocated'
+        numLetsOut = f'There are around {averageWait[2]} people in this band or higher waiting for a property of this size. Click below for more information on how properties are allocated.'
 
     return jsonify(result=resultOut, numLets=numLetsOut, parameters=parametersOut)
 
