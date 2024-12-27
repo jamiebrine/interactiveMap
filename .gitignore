@@ -3,3 +3,4 @@ instance
 test.py
 containers.json
 public-endpoint.json
+.vscode/
